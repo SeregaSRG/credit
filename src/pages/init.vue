@@ -8,7 +8,7 @@
             онлайн кредитов, займов и карт.
             Используя приложение "Займы и Кредиты" вы подтверждаете, что принимаете и ознакомлены с
             <br>
-            <span class="link">Политикой конфиденциальности</span>
+            <span class="link" @click="toPolicy">Политикой конфиденциальности</span>
         </div>
         <div class="buttons__wrapper">
             <div class="checkbox__wrapper">
@@ -32,6 +32,9 @@ export default {
       this.$f7router.navigate('/login', {
         clearPreviousHistory: true
       })
+    },
+    toPolicy () {
+      this.$f7router.navigate('/policy', )
     }
   }
 }
@@ -67,6 +70,7 @@ export default {
         .link {
             color: #11CDEF;
             text-decoration: underline;
+            overflow: hidden;
         }
     }
 

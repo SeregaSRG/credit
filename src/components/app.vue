@@ -52,3 +52,7 @@
     }
   }
 </script>
+<style lang="scss">
+  @import "../fonts/Montserrat/stylesheet.css";
+  @import "../fonts/OpenSans/stylesheet.css";
+</style>

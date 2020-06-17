@@ -7,6 +7,19 @@
 
 * {
   box-sizing: border-box;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input, textarea {
+  user-select: auto !important;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 $blue: #5663FE;
@@ -16,7 +29,7 @@ $blue: #5663FE;
   top: 0;
   left: 0;
   width: 100%;
-  height: 61px;
+  height: 60px;
   background: rgba(4, 40, 98, 0.2);
   text-align: center;
   display: flex;
@@ -32,6 +45,14 @@ $blue: #5663FE;
 
   color: white;
   letter-spacing: 0.31px;
+
+  &__icon {
+    &--right {
+      position: absolute;
+      right: calc(18px);
+      top: calc(30px - 14px);
+    }
+  }
 }
 
 .button {

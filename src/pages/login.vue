@@ -4,8 +4,8 @@
             ВХОД
         </div>
         <div class="inputs__wrapper">
-            <input type="text" class="input">
-            <input type="text" class="input">
+            <input type="text" class="input" placeholder="Номер телефона">
+            <input type="text" class="input" placeholder="Код подтверждения">
         </div>
         <div class="buttons__wrapper">
             <div class="button--light">ПОЛУЧИТЬ КОД</div>
@@ -27,7 +27,7 @@ export default {
   name: 'login',
   methods: {
     send () {
-      this.$f7router.navigate('/login', {
+      this.$f7router.navigate('/workspace', {
         clearPreviousHistory: true
       })
     }
@@ -69,6 +69,10 @@ export default {
             color: white;
 
             // TODO глобально очистить стили инпута
+
+            &::placeholder {
+                color: white;
+            }
         }
     }
 
