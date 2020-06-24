@@ -27,6 +27,17 @@ export default {
   name: 'login',
   methods: {
     send () {
+      console.log('send')
+      this.$f7router.navigate('/workspace', {
+        clearPreviousHistory: true
+      })
+    }
+  },
+  created () {
+  },
+  beforeCreate () {
+    const hide_order_offer = this.$store.state.server.data.hasOwnProperty('app_config') ? this.$store.state.server.data.app_config.hide_order_offer : null
+    if (hide_order_offer === '1') {
       this.$f7router.navigate('/workspace', {
         clearPreviousHistory: true
       })
@@ -40,11 +51,17 @@ export default {
         background-image: url("../assets/login-bg.png");
         background-position: center center;
         background-size: cover;
+
+        * {
+            flex-shrink: 0;
+        }
     }
 
     .inputs__wrapper {
         height: 45%;
+        min-height: 220px;
         width: 100%;
+        padding-top: 100px;
 
         display: flex;
         flex-direction: column;
@@ -79,6 +96,8 @@ export default {
     .buttons__wrapper {
         height: 55%;
         width: 100%;
+
+        min-height: 300px;
 
         display: flex;
         flex-direction: column;

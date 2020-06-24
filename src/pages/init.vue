@@ -11,11 +11,16 @@
             <span class="link" @click="toPolicy">Политикой конфиденциальности</span>
         </div>
         <div class="buttons__wrapper">
-            <div class="checkbox__wrapper">
-                <div class="checkbox__button"></div>
+            <div class="checkbox__wrapper"
+                @click="checked = !checked"
+            >
+                <div class="checkbox__button">
+                     <i class="icon f7-icons" v-if="checked">checkmark_alt</i>
+                </div>
                 <div class="checkbox__label">Я принимаю пользовательское соглашение</div>
             </div>
             <div class="button"
+                 v-if="checked"
                 @click="accept"
             >
                 ПРИНЯТЬ
@@ -27,8 +32,14 @@
 <script>
 export default {
   name: 'init',
+  data () {
+    return {
+      checked: true
+    }
+  },
   methods: {
     accept () {
+      this.$store.commit('server/ACCEPT_POLICY')
       this.$f7router.navigate('/login', {
         clearPreviousHistory: true
       })
@@ -36,6 +47,16 @@ export default {
     toPolicy () {
       this.$f7router.navigate('/policy', )
     }
+  },
+  beforeCreate () {
+    const hideInitAgreement = this.$store.state.server.data.hasOwnProperty('hideInitAgreement') ? this.$store.state.server.data.hideInitAgreement : null
+    if (hideInitAgreement === '0') {
+      this.$f7router.navigate('/login', {
+        clearPreviousHistory: true
+      })
+    }
+  },
+  mounted () {
   }
 }
 </script>

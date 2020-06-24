@@ -4,13 +4,27 @@
             <div class="loan__header-title">Займы</div>
         </div>
         <div class="loan__scroll-area">
+            <loan-card
+                v-for="loan in loans"
+                :key="loan.itemId"
+                :loan="loan"
+            ></loan-card>
         </div>
     </div>
 </template>
 
 <script>
+import loanCard from './loanCard'
 export default {
-  name: 'loan'
+  name: 'loan',
+  components: {
+    loanCard: loanCard
+  },
+  computed: {
+    loans () {
+      return this.$store.state.server.data.loans.filter((e) => e.isActive === '1')
+    }
+  }
 }
 </script>
 
@@ -54,7 +68,7 @@ export default {
         &__scroll-area {
             height: 100%;
             width: 100%;
-            padding: 160px 20px 15px;
+            padding: 160px 20px 20px;
             overflow: scroll;
         }
     }

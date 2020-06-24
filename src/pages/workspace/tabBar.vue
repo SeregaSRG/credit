@@ -1,11 +1,17 @@
 <template>
     <div class="tab-bar">
         <div class="buttons__wrapper">
-            <div class="tab-bar__button loan-button" @click="index=0">
+            <div class="tab-bar__button loan-button" @click="index=0"
+                v-if="config.loans_item === '1'"
+            >
             </div>
-            <div class="tab-bar__button card-button" @click="index=1">
+            <div class="tab-bar__button card-button" @click="index=1"
+                 v-if="config.cards_credit_item === '1'"
+            >
             </div>
-            <div class="tab-bar__button credit-button" @click="index=2">
+            <div class="tab-bar__button credit-button" @click="index=2"
+                 v-if="config.credits_item === '1'"
+            >
             </div>
         </div>
     </div>
@@ -27,6 +33,11 @@ export default {
   },
   mounted () {
     this.index = this.currentPage
+  },
+  computed: {
+    config () {
+      return this.$store.getters['server/data'].app_config
+    }
   },
   watch: {
     index (n) {

@@ -1,21 +1,14 @@
 <template>
     <f7-page name="policy" class="policy">
         <div class="header-title">
-            <div class="header-title__icon--right">
+            <div class="header-title__icon--right" @click="toInfo">
                 <i class="icon f7-icons">info_circle</i>
             </div>
         </div>
         <div class="hands"></div>
-        <div class="text">
-            Персональные данные
-
-            Персональные данные при посещении сайта передаются пользователем добровольно, к ним могут относиться: имя, фамилия, отчество, номера телефонов, адреса электронной почты, адреса для доставки товаров или оказания услуг, реквизиты компании, которую представляет пользователь, должность в компании, которую представляет пользователь, аккаунты в социальных сетях, а также — прочие, заполняемые поля форм.
-
-            Эти данные собираются в целях оказания услуг или продажи товаров, возможности связи с пользователем или иной активности пользователя на сайте, а также, чтобы отправлять пользователю информацию, которую он согласился получать.
-
-            Мы не проверяем достоверность оставляемых данных и не гарантируем качественного исполнения заказов, оказания услуг или обратной связи с нами при предоставлении некорректных сведений.
-
-            Мы не проверяем достоверность оставляемых данных и не гарантируем качественного исполнения заказов, оказания услуг или ...
+        <div class="text"
+            v-html="policy"
+        >
         </div>
         <div class="button"
              @click="accept"
@@ -30,15 +23,25 @@ export default {
   name: 'policy',
   methods: {
     accept () {
+      this.$store.commit('server/ACCEPT_POLICY')
       this.$f7router.navigate('/login', {
         clearPreviousHistory: true
       })
-    },
+    }
+  },
+  computed: {
+    policy () {
+      return this.$store.state.server.data.init_license_term
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+    .button {
+        margin-bottom: 20px;
+    }
+
     .header-title {
         background: linear-gradient(90.27deg, #5663FF 17.33%, #4652E2 44.64%, #4652E2 74.6%);
     }

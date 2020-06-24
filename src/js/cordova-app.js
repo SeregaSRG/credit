@@ -1,3 +1,5 @@
+import store from '../store'
+
 var cordovaApp = {
   f7: null,
   /*
@@ -150,3 +152,56 @@ var cordovaApp = {
 };
 
 export default cordovaApp;
+
+document.addEventListener("deviceready", () => {
+  const configuration = {
+    // Mandatory.
+    apiKey: '96cc8dbf-3afc-46d5-b756-29181142eec2',
+    // Optional.
+    locationTracking: true,
+    sessionTimeout: 15
+  }
+  // Initializing the AppMetrica SDK.
+  window.appMetrica.activate(configuration);
+  // Sending a custom event.
+  window.appMetrica.reportEvent('Test event', { 'foo': 'bar' });
+  
+  console.log('appmetrika', configuration);
+  
+  window.plugins.sim.hasReadPermission(() => {
+    window.plugins.sim.getSimInfo((e) => {
+      console.log(e)
+    }, (e) => {
+      alert(e)
+    })
+  }, () => {
+    window.plugins.sim.requestReadPermission(() => {
+    
+    }, () => {
+    
+    });
+  })
+}, false)
+
+const lastDate = store.getters['server/date']
+console.log('start')
+store.dispatch('server/getDate')
+  .then((d) => {
+    console.log('g d s')
+    if (lastDate !== store.getters['server/date']) {
+      return store.dispatch('server/getDB')
+        .then((d) => {
+          console.log('g b s')
+          // this.routeProcess()
+        })
+        .catch((e) => {
+          console.log('g b e')
+        })
+    } else {
+      console.log('else')
+      // this.routeProcess()
+    }
+  })
+  .catch((e) => {
+    console.log('g d e')
+  })
