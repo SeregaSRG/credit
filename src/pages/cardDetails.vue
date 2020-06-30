@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="button"
-                     @click="openOffer(card.order)"
+                     @click="openOffer(card.order, card)"
                 >
                     {{ card.orderButtonText ? card.orderButtonText : 'Оформить' }}
                 </div>

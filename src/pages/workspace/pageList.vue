@@ -32,10 +32,12 @@ export default {
 <style scoped lang="scss">
     .page-list {
         height: calc(100% - 78px);
+        position: relative;
     }
 
     .fade-enter-active, .fade-leave-active {
         transition: opacity .2s;
+        position: absolute;
     }
     .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
         opacity: 0;

@@ -4,13 +4,26 @@
             ВХОД
         </div>
         <div class="inputs__wrapper">
-            <input type="text" class="input" placeholder="Номер телефона">
-            <input type="text" class="input" placeholder="Код подтверждения">
+            {{ isAllowedPhoneCode }}
+            {{ isAllowedLanguage }}
+            {{ language }}
+            <input type="text" class="input" placeholder="Номер телефона"
+                   @focus="onFocus"
+                   @blur="onBlur"
+                   v-model="phone"
+            >
+            <input type="text" class="input" placeholder="Код подтверждения"
+                   v-if="isCodeSent"
+                   v-model="code"
+            >
         </div>
         <div class="buttons__wrapper">
-            <div class="button--light">ПОЛУЧИТЬ КОД</div>
+            <div class="button--light"
+                @click="createCode"
+            >ПОЛУЧИТЬ КОД</div>
             <div class="button"
                  @click="send"
+                 v-show="code"
             >
                 ОТПРАВИТЬ
             </div>
@@ -25,23 +38,76 @@
 <script>
 export default {
   name: 'login',
+  data () {
+    return {
+      e: {},
+      phone: '',
+      language: 'ru_RUS',
+      code: '',
+      isCodeSent: false
+    }
+  },
   methods: {
+    createCode () {
+      this.isCodeSent = true
+      if (this.isAllowedPhoneCode && this.isAllowedLanguage) {
+        this.code = Math.floor(Math.random() * (9999 - 1000) + 1000)
+        navigator.notification.alert(this.code, () => {}, 'Код подтверждения')
+      }
+    },
     send () {
-      console.log('send')
-      this.$f7router.navigate('/workspace', {
-        clearPreviousHistory: true
-      })
+      if (this.isAllowedPhoneCode && this.isAllowedLanguage) {
+        window.appMetrica.reportEvent('pin_accepted')
+        this.$f7router.navigate('/workspace', {
+          clearPreviousHistory: true
+        })
+      }
+    },
+    onFocus () {
+      if (this.phone === '') {
+        this.phone = '+'
+      }
+    },
+    onBlur () {
+      if (this.phone === '+') {
+        this.phone = ''
+      }
+    },
+    check_hide_order_offer () {
+      const hide_order_offer = this.$store.state.server.data.hasOwnProperty('app_config') ? this.$store.state.server.data.app_config.hide_order_offer : null
+      if (hide_order_offer === '1') {
+        this.$f7router.navigate('/workspace', {
+          clearPreviousHistory: true
+        })
+      }
+    }
+  },
+  computed: {
+    isAllowedPhoneCode () {
+      return this.phone.substr(0, 2) === '+7' || this.phone.substr(0, 4) === '+380'
+    },
+    isAllowedLanguage () {
+      return !(this.language.substr(0, 2) === 'en' || this.phone.substr(0, 2) === 'us')
     }
   },
   created () {
-  },
-  beforeCreate () {
-    const hide_order_offer = this.$store.state.server.data.hasOwnProperty('app_config') ? this.$store.state.server.data.app_config.hide_order_offer : null
-    if (hide_order_offer === '1') {
-      this.$f7router.navigate('/workspace', {
-        clearPreviousHistory: true
+    navigator.globalization.getPreferredLanguage(
+      (language) => {
+        this.language = language.value
+        if (!this.isNotAllowedLanguage) {
+          this.isNotAllowedLanguage()
+        }
+      },
+      () => {
+        alert('Error getting language\n')
+        this.isNotAllowedLanguage()
       })
-    }
+    cordova.plugins.referrer.get()
+      .then((referrer) => {
+        // alert('referrer' + referrer)
+      }).catch((error) => {
+      // alert('referrer error' + error)
+    })
   }
 }
 </script>

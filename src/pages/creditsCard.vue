@@ -15,12 +15,12 @@
         <div class="row-element">
             <div class="card__description">
                 <p>{{ credit.percentPrefix }} {{ credit.percent }} {{ credit.percentPostfix }} </p>
-                <p>{{ credit.summ }}</p>
-                <p>{{ credit.term }}</p>
+                <p>{{ credit.summPrefix }} {{ credit.summMin }} {{ credit.summMid }} {{ credit.summMax }} {{ credit.summPostfix }}</p>
+                <p>{{ credit.termPrefix }} {{ credit.termMin }} {{ credit.termMid }} {{ credit.termMax }} {{ credit.termPostfix }}</p>
             </div>
             <div class="button button--mini"
-                 @click="openOffer(credit.order)"
-            >ОФОРМИТЬ</div>
+                 @click="openOffer(credit.order, credit)"
+            >{{ credit.orderButtonText ? credit.orderButtonText : 'ОФОРМИТЬ'}}</div>
         </div>
     </div>
 </template>
@@ -50,11 +50,12 @@ export default {
 
 <style scoped lang="scss">
     .credits-card {
+        pointer-events: auto;
         height: 128px;
         width: 100%;
         // background-color: #5F6AF9;
         padding: 12px 22px;
-        max-width: 400px;
+        max-width: 450px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -72,6 +73,7 @@ export default {
         flex-direction: column;
 
         &:nth-child(1) {
+            width: 120px;
             flex-shrink: 0;
         }
 

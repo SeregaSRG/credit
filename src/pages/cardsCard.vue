@@ -29,12 +29,12 @@
         <div class="row-element">
             <div class="card__description">
                 <p>{{ card.percentPrefix }} {{ card.percent }} {{ card.percentPostfix }} </p>
-                <p>{{ card.summ }}</p>
-                <p>{{ card.term }}</p>
+                <p>{{ card.summPrefix }} {{ card.summMin }} {{ card.summMid }} {{ card.summMax }} {{ card.summPostfix }}</p>
+                <p>{{ card.termPrefix }} {{ card.termMin }} {{ card.termMid }} {{ card.termMax }} {{ card.termPostfix }}</p>
             </div>
             <div class="button button--mini"
-                @click="openOffer(card.order)"
-            >ОФОРМИТЬ</div>
+                @click="openOffer(card.order, card)"
+            >{{ card.orderButtonText ? card.orderButtonText : 'ОФОРМИТЬ'}}</div>
         </div>
     </div>
 </template>
@@ -64,11 +64,12 @@ export default {
 
 <style scoped lang="scss">
     .cards-card {
+        pointer-events: auto;
         height: 128px;
         width: 100%;
         // background-color: #5F6AF9;
         padding: 12px;
-        max-width: 320px;
+        max-width: 450px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -83,11 +84,12 @@ export default {
         flex-direction: column;
 
         &:nth-child(1) {
+            width: 120px;
             flex-shrink: 0;
         }
 
         &:nth-child(2) {
-            width: 65px;
+            width: 75px;
             flex-shrink: 0;
         }
 

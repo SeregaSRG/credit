@@ -5,7 +5,7 @@ let querystring = require('querystring')
 const HTTP = axios.create({
   baseURL: 'https://zaimiukrain.com/',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   }
 })
 

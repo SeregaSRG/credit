@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "488868057429",
+    "firebase_url": "https://id29-zos-4.firebaseio.com",
+    "project_id": "id29-zos-4",
+    "storage_bucket": "id29-zos-4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488868057429:android:a85668b11dd3bf8d471fdc",
+        "android_client_info": {
+          "package_name": "com.zoukr.idev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488868057429-3oni8e011g1i747rn26rar5g91e7bn9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2py_6939ZeV8HmdStEd03H9w9Jwj3e94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488868057429-3oni8e011g1i747rn26rar5g91e7bn9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

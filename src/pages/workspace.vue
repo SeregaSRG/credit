@@ -23,6 +23,22 @@ export default {
     return {
       page: 0
     }
+  },
+  computed: {
+    config () {
+      return this.$store.getters['server/data'].app_config
+    }
+  },
+  created () {
+    if (this.config.loans_item === '1') {
+      this.page = 0
+    } else
+    if (this.config.cards_credit_item === '1') {
+      this.page = 1
+    } else
+    if (this.config.credits_item === '1') {
+      this.page = 2
+    }
   }
 }
 </script>

@@ -88,6 +88,7 @@ export default {
         top: 0;
         left: 0;
         overflow: scroll;
+        pointer-events: none;
     }
 
     .content__substrate {
@@ -98,5 +99,6 @@ export default {
         width: 100%;
         height: auto;
         padding: 0 12px 100px 12px;
+        pointer-events: none;
     }
 </style>

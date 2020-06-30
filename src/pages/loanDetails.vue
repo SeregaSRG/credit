@@ -9,6 +9,7 @@
                 </div>
                 <div class="content__substrate-line"></div>
                 <div v-html="loan.description"></div>
+                <div class="loan_term" v-if="loan.termMin && loan.termMax"><b>Срок займа: {{ loan.termPrefix }} {{ loan.termMin }} {{ loan.termMid }} {{ loan.termMax }} {{ loan.termPostfix }}</b></div>
                 <div class="icons__wrapper">
                     <div class="icon icon-mc"
                         v-if="loan.mastercard === '1'"
@@ -36,7 +37,7 @@
                     </div>
                 </div>
                 <div class="button"
-                     @click="openOffer(loan.order)"
+                     @click="openOffer(loan.order, loan)"
                 >
                     {{ loan.orderButtonText ? loan.orderButtonText : 'Оформить' }}
                 </div>

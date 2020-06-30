@@ -5,7 +5,7 @@ var cordovaApp = {
   /*
   This method hides splashscreen after 2 seconds
   */
-  handleSplashscreen: function() {
+  handleSplashscreen: function () {
     var f7 = cordovaApp.f7;
     if (!window.navigator.splashscreen || f7.device.electron) return;
     setTimeout(() => {
@@ -21,7 +21,7 @@ var cordovaApp = {
     var f7 = cordovaApp.f7;
     const $ = f7.$;
     if (f7.device.electron) return;
-
+    
     document.addEventListener('backbutton', function (e) {
       if ($('.actions-modal.modal-in').length) {
         f7.actions.close('.actions-modal.modal-in');
@@ -61,26 +61,26 @@ var cordovaApp = {
         e.preventDefault();
         return false;
       }
-
+      
       if ($('.page-current .searchbar-enabled').length) {
         f7.searchbar.disable('.page-current .searchbar-enabled');
         e.preventDefault();
         return false;
       }
-
+      
       if ($('.page-current .card-expandable.card-opened').length) {
         f7.card.close('.page-current .card-expandable.card-opened');
         e.preventDefault();
         return false;
       }
-
+      
       const currentView = f7.views.current;
       if (currentView && currentView.router && currentView.router.history.length > 1) {
         currentView.router.back();
         e.preventDefault();
         return false;
       }
-
+      
       if ($('.panel.panel-in').length) {
         f7.panel.close('.panel.panel-in');
         e.preventDefault();
@@ -123,7 +123,7 @@ var cordovaApp = {
         document.body.style.height = '';
         $('html').removeClass('device-with-keyboard');
       }
-
+      
     });
     $(document).on('touchstart', 'input, textarea, select', function (e) {
       var nodeName = e.target.nodeName.toLowerCase();
@@ -139,13 +139,13 @@ var cordovaApp = {
   init: function (f7) {
     // Save f7 instance
     cordovaApp.f7 = f7;
-
+    
     // Handle Android back button
     cordovaApp.handleAndroidBackButton();
-
+    
     // Handle Splash Screen
     cordovaApp.handleSplashscreen();
-
+    
     // Handle Keyboard
     cordovaApp.handleKeyboard();
   },
@@ -153,7 +153,8 @@ var cordovaApp = {
 
 export default cordovaApp;
 
-document.addEventListener("deviceready", () => {
+
+document.addEventListener('deviceready', () => {
   const configuration = {
     // Mandatory.
     apiKey: '96cc8dbf-3afc-46d5-b756-29181142eec2',
@@ -164,24 +165,21 @@ document.addEventListener("deviceready", () => {
   // Initializing the AppMetrica SDK.
   window.appMetrica.activate(configuration);
   // Sending a custom event.
-  window.appMetrica.reportEvent('Test event', { 'foo': 'bar' });
   
   console.log('appmetrika', configuration);
-  
-  window.plugins.sim.hasReadPermission(() => {
-    window.plugins.sim.getSimInfo((e) => {
-      console.log(e)
-    }, (e) => {
-      alert(e)
-    })
-  }, () => {
-    window.plugins.sim.requestReadPermission(() => {
-    
-    }, () => {
-    
-    });
-  })
 }, false)
+
+/*
+console.log('start')
+store.dispatch('server/getDB')
+  .then((d) => {
+    console.log('g b s')
+    // this.routeProcess()
+  })
+  .catch((e) => {
+    console.log('g b e', e)
+  })
+ */
 
 const lastDate = store.getters['server/date']
 console.log('start')

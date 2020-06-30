@@ -30,31 +30,51 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
   name: 'init',
   data () {
     return {
-      checked: true
+      checked: true,
+      language: ''
     }
   },
   methods: {
     accept () {
       this.$store.commit('server/ACCEPT_POLICY')
-      this.$f7router.navigate('/login', {
+      this.$f7router.navigate('/workspace', {
         clearPreviousHistory: true
       })
     },
     toPolicy () {
       this.$f7router.navigate('/policy', )
+    },
+    checkHideInitAgreement () {
+      const hideInitAgreement = this.$store.state.server.data.hasOwnProperty('hideInitAgreement') ? this.$store.state.server.data.hideInitAgreement : null
+      if (hideInitAgreement === '0') {
+        this.$f7router.navigate('/login', {
+          clearPreviousHistory: true
+        })
+      }
+      if (this.$store.state.server.policy) {
+        this.$f7router.navigate('/login', {
+          clearPreviousHistory: true
+        })
+      }
     }
   },
-  beforeCreate () {
-    const hideInitAgreement = this.$store.state.server.data.hasOwnProperty('hideInitAgreement') ? this.$store.state.server.data.hideInitAgreement : null
-    if (hideInitAgreement === '0') {
-      this.$f7router.navigate('/login', {
-        clearPreviousHistory: true
+  created () {
+    navigator.globalization.getPreferredLanguage(
+      (language) => {
+        if (language.value.substr(0, 2) !== 'en' && language.value.substr(0, 2) !== 'us') {
+          this.checkHideInitAgreement()
+        }
+      },
+      () => {
+        alert('Error getting language\n')
+        this.checkHideInitAgreement()
       })
-    }
   },
   mounted () {
   }

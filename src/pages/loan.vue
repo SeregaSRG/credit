@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     loans () {
-      return this.$store.state.server.data.loans.filter((e) => e.isActive === '1')
+      return this.$store.state.server.data.loans.filter((e) => e.isActive === '1' && e.id !== '100')
     }
   }
 }

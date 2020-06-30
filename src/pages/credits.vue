@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     credits () {
-      return this.$store.state.server.data.loans.filter((e) => e.isActive === '1')
+      return this.$store.state.server.data.credits.filter((e) => e.isActive === '1' && e.id !== '100')
     }
   }
 }
@@ -82,6 +82,7 @@ export default {
     }
 
     .content__wrapper {
+        pointer-events: none;
         width: 100vw;
         height: 100vh;
         position: absolute;
@@ -98,6 +99,7 @@ export default {
         width: 100%;
         height: auto;
         padding: 0 0 100px 0;
+        pointer-events: none;
     }
 
     .credits__header__icon--right {
